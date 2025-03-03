@@ -22,8 +22,12 @@ document.getElementById("fetchData").addEventListener("click", () => {
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   if (message.formData) {
+    const data = await getResponse(message.formData);
     //   console.log("Form Data Received in Popup:", message.formData);
-    console.log(await getResponse(message.formData));
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, { action: "insertData", data });
+    });
+    console.log(data);
   } else if (message.error) {
     console.log("Error:", message.error);
   }

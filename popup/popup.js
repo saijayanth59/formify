@@ -21,14 +21,18 @@ document.getElementById("fetchData").addEventListener("click", () => {
 });
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-  if (message.formData) {
-    const data = await getResponse(message.formData);
-    //   console.log("Form Data Received in Popup:", message.formData);
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: "insertData", data });
-    });
-    console.log(data);
-  } else if (message.error) {
-    console.log("Error:", message.error);
+  if (message.action === "fetchAIResponse") {
+    if (message.formData) {
+      const data = await getResponse(message.formData);
+      //   console.log("Form Data Received in Popup:", message.formData);
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "insertData", data });
+      });
+      console.log(data);
+    }
+  } else if (message.action === "dataInserted") {
+    console.log("Data Inserted Successfully");
+  } else {
+    console.log("No form found on this page");
   }
 });

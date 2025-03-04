@@ -5,13 +5,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     let form = document.querySelector("form");
 
     if (form) {
-      chrome.runtime.sendMessage({ formData: form.outerHTML });
+      chrome.runtime.sendMessage({
+        formData: form.outerHTML,
+        action: "fetchAIResponse",
+      });
     } else {
       chrome.runtime.sendMessage({ error: "No form found on this page" });
     }
   } else if (message.action === "insertData") {
     console.log("Inserting data", message.data);
     insertAnswers(message.data);
+    chrome.runtime.sendMessage({ action: "dataInserted" });
   }
 });
 

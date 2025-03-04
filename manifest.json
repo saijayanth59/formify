@@ -1,9 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Testing",
-  "version": "1.0",
+  "name": "SmartForm Filler",
+  "version": "1.9",
+  "description": "SmartForm Filler automates form completion using AI-driven data extraction and response generation.",
   "action": {
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/morty.png",
+      "24": "assets/morty.png",
+      "32": "assets/morty.png"
+    }
   },
   "background": {
     "service_worker": "background.js"

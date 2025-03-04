@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "SmartForm Filler",
+  "version": "2",
+  "description": "SmartForm Filler automates form completion using AI-driven data extraction and response generation.",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "morty.png",
+      "24": "morty.png",
+      "32": "morty.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "tabs", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
